@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+.pointer-event-none {
+  pointer-events: none;
+}
+
+.border-right {
+  border-right: 1px solid #ccc;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Jumbotron */
+.jumbotron-home {
+  height: 90vh;
+  object-fit: cover;
+}
+
+.jumbotron-information {
+  text-shadow: 2px 2px 10px #000000;
+}
+
+.jumbotron-title {
+  font-size: 4rem;
+}
+
+.jumbotron-subtitle {
+  font-size: 1.5rem;
+}
+/* End of Jumbotron */
+
+/* Footer */
+.footer {
+  padding: 5px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+/* End of Footer */
+
+/* Card Kostan */
+.card-kostan {
+  padding: 0;
+  margin: 2rem 1rem;
+}
+/* End of Card Kostan */
