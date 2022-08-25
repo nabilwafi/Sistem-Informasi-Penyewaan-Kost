@@ -29,6 +29,7 @@
             <th>Tanggal Terakhir Pembayaran</th>
             <th>Status Pembayaran</th>
             <th>Jumlah yang sudah dibayar</th>
+            <th>Keterangan</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -46,12 +47,21 @@
             <td><?= $order['durasi_sewa'] ?> Bulan</td>
             <td>Rp. <?= $order['nominal_pembayaran'] ?></td>
             <td>
-              <?= $order['terakhir_pembayaran'] ?>
+                <div class="btn pointer-event-none <?= $order['status_pembayaran'] != 'lunas' ? "btn-danger" : 'btn-success' ?>">
+                  <?= $order['terakhir_pembayaran'] ?>
+                </div>
             </td>
             <td><?= $order['status_pembayaran'] ?></td>
             <td>
               <?php if($order['total_pembayaran_lunas']) : ?>
                 Rp. <?= $order['total_pembayaran_lunas'] ?>
+              <?php else : ?>
+                -
+              <?php endif ?>
+            </td>
+            <td>
+              <?php if($order['keterangan']) : ?>
+                <?= $order['keterangan'] ?>
               <?php else : ?>
                 -
               <?php endif ?>

@@ -430,12 +430,32 @@ class Admin extends BaseController
     public function editOrder($order)
     {      
         $status_pembayaran = $this->request->getVar('status_pembayaran');
+        $keterangan = $this->request->getVar('keterangan');
+        $dataOrder = $this->orders->find($order);
 
-        if($this->orders->update($order, ['status_pembayaran' => $status_pembayaran])) {
-            return redirect()->to('/admin/data-order/')->with('success', 'Data Order Updated');
+        if($status_pembayaran == "menyicil") {
+            if($this->orders->update($order, ['status_pembayaran' => $status_pembayaran, 'terakhir_pembayaran' => date('Y:m:d H:i:s', strtotime($dataOrder['terakhir_pembayaran']. '+1 month'))])) {
+                return redirect()->to('/admin/data-order/')->with('success', 'Data Order Updated');
+            }else {
+                return redirect()->to('/admin/data-order/')->with('error', 'Failed Updated Data Order');
+            }
+        }else if($status_pembayaran == 'lunas') {
+            if($this->orders->update($order, ['status_pembayaran' => $status_pembayaran])) {
+                return redirect()->to('/admin/data-order/')->with('success', 'Data Order Updated');
+            }else {
+                return redirect()->to('/admin/data-order/')->with('error', 'Failed Updated Data Order');
+            }
         }else {
-            return redirect()->to('/admin/data-order/')->with('error', 'Failed Updated Data Order');
+            if($this->orders->update($order, ['status_pembayaran' => $status_pembayaran, 'keterangan' => $keterangan])) {
+                $dataPembayaran = $this->pembayarans->where('id_order', $order)->orderBy('id', 'desc')->first();
+                $this->pembayarans->delete($dataPembayaran['id']);
+                unlink('./images/bukti_pembayaran/'.$dataPembayaran['bukti_pembayaran']);
+                return redirect()->to('/admin/data-order/')->with('success', 'Data Order Updated');
+            }else {
+                return redirect()->to('/admin/data-order/')->with('error', 'Failed Updated Data Order');
+            }
         }
+
     }
 
     public function dataTransaksi($user, $order)

@@ -14,7 +14,7 @@ class OrderModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_kamar', 'id_user', 'tanggal_masuk', 'tanggal_keluar', 'durasi_sewa', 'nominal_pembayaran','status_pembayaran', 'terakhir_pembayaran'];
+    protected $allowedFields    = ['id_kamar', 'id_user', 'tanggal_masuk', 'tanggal_keluar', 'durasi_sewa', 'nominal_pembayaran','status_pembayaran', 'terakhir_pembayaran', 'keterangan'];
 
     // Dates
     protected $useTimestamps = false;

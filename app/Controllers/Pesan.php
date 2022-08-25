@@ -45,7 +45,7 @@ class Pesan extends BaseController
                 'tanggal_keluar' => $date,
                 'durasi_sewa' => $this->request->getVar('durasi_sewa'),
                 'nominal_pembayaran' => (int)$this->request->getVar('harga_kamar')*(int)$this->request->getVar('durasi_sewa'),
-                'terakhir_pembayaran' => date('Y:m:d H:i:s', strtotime(date('Y:m:d H:i:s'). '+6 hours'))
+                'terakhir_pembayaran' => date('Y:m:d H:i:s', strtotime(date('Y:m:d H:i:s'). '+1 day'))
             ];
 
             if($this->orderModel->save($input)) {

@@ -7,7 +7,7 @@
 
     <?php if($deadlines) : ?>
         <button class="btn btn-danger pointer-event-none mr-3" type="button">
-        Anda memiliki tenggak pembayaran<span class="badge"><?= count($deadlines) ?></span>
+        Anda memiliki tenggat pembayaran<span class="badge"><?= count($deadlines) ?></span>
         </button>
     <?php endif ?>
     <?php if(isset($cicilan['nominal_pembayaran']) && isset($cicilan['total_pembayaran_lunas'])) : ?>

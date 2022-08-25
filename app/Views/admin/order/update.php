@@ -19,7 +19,18 @@
           class="form-control<?= $validation->hasError('status_pembayaran') ? " is-invalid" : "" ?>">
           <option <?= $order['status_pembayaran'] == "menyicil" ? "selected" : "" ?> value="menyicil">Menyicil</option>
           <option <?= $order['status_pembayaran'] == "lunas" ? "selected" : "" ?> value="lunas">Lunas</option>
+          <option <?= $order['status_pembayaran'] == "ditolak" ? "selected" : "" ?> value="ditolak">Ditolak</option>
         </select>
+        <?php if($validation->hasError('status_pembayaran')) : ?>
+        <div class="invalid-feedback">
+          <?= $validation->getError('status_pembayaran') ?>
+        </div>
+        <?php endif; ?>
+      </div>
+
+      <div id="keterangan" class="d-none mb-3">
+        <label for="select">Keterangan</label>
+        <textarea name="keterangan" class="form-control" id="" cols="30" rows="10"></textarea>
         <?php if($validation->hasError('status_pembayaran')) : ?>
         <div class="invalid-feedback">
           <?= $validation->getError('status_pembayaran') ?>
@@ -34,6 +45,15 @@
   </form>
 </div>
 
+<script>
+  $('#select').on('change', function() {
+    if($('#select').val() == 'ditolak') {
+      $('#keterangan').removeClass('d-none');
+    }else {
+      $('#keterangan').addClass('d-none');
+    }
+  });
+</script>
 <?= $this->endSection() ?>
 
 <?= $this->section('head') ?>
