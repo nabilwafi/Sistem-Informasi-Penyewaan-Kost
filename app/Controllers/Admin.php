@@ -408,12 +408,12 @@ class Admin extends BaseController
     public function dataOrder()
     {   
         $data = [
-            'orders' => $this->orders->joinOrderTable()->orderBy('id', 'DESC')->paginate(5, 'orders'),
+            'orders' => $this->orders->joinOrderTable()->orderBy('id', 'DESC')->groupBy('order.id')->paginate(5, 'orders'),
             'pager' => $this->orders->pager,
             'currentPage' => $this->request->getVar('page_orders') ? $this->request->getVar('page_orders') : 1,
             'validation' => $this->validation
         ];
-
+        
         return view('admin/order/index', $data);
     }
 

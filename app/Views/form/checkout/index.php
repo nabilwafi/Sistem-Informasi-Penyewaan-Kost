@@ -16,7 +16,7 @@
             <p class="dis info">
               <?= $kamar['deskripsi'] ?>
             </p>
-            <p class="dis info">Rp. <?= $kamar['harga_kamar'] ?></p>
+            <p class="dis info">Rp. <?= $kamar['harga_kamar'] ?>/ Bulan</p>
           </div>
         </div>
       </div>
@@ -45,6 +45,7 @@
                   <option value="6">6 Months</option>
                   <option value="12">12 Months</option>
                 </select>
+
                 <div class="d-flex flex-column dis">
                   <div class="d-flex align-items-center justify-content-between mb-2">
                     <p>Subtotal</p>
