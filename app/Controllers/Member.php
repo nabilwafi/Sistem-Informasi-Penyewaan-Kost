@@ -36,7 +36,7 @@ class Member extends BaseController
     public function dataOrder($user)
     {
         $data = [
-            'orders' => $this->orderModel->joinOrderTable()->where('id_user',$user)->orderBy('order.id', 'DESC')->groupBy('order.id')->paginate(5, 'orders'),
+            'orders' => $this->orderModel->joinOrderTable()->where('id_user',$user)->orderBy('order.id', 'DESC')->groupBy('id')->paginate(5, 'orders'),
             'pager' => $this->orderModel->pager,
             'currentPage' => $this->request->getVar('page_orders') ? $this->request->getVar('page_orders') : 1,
             'deadlines' => $this->orderModel->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'belum bayar'])->findAll(),
@@ -64,10 +64,10 @@ class Member extends BaseController
     public function paymentOrder($order)
     {
         $user = session()->get('id');
-        $order = $this->orderModel->select('order.id, order.nominal_pembayaran, kamar.gambar, kamar.no_kamar')
-                        ->join('kamar', 'kamar.id = order.id_kamar')
-                        ->find($order);
+        $order = $this->orderModel->joinOrderTable()->find($order);
 
+        // dd($order['nominal_pembayaran']-$order['total_pembayaran_lunas']);
+        
         $data = [
             'validation' => $this->validation,
             'order' => $order,

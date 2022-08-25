@@ -42,7 +42,7 @@ class OrderModel extends Model
 
     public function joinOrderTable()
     {
-        return $this->select('order.*, member.nama, kamar.no_kamar, SUM(pembayaran.pembayaran) as total_pembayaran_lunas')->join('pembayaran', 'pembayaran.id_order = order.id', 'left')->join('member', 'member.id = order.id_user')->join('kamar', 'kamar.id = order.id_kamar');
+        return $this->select('order.*, member.nama, kamar.no_kamar, kamar.gambar, , SUM(pembayaran.pembayaran) as total_pembayaran_lunas')->join('pembayaran', 'pembayaran.id_order = order.id', 'left')->join('member', 'member.id = order.id_user')->join('kamar', 'kamar.id = order.id_kamar');
     }
 
     public function cicilan()

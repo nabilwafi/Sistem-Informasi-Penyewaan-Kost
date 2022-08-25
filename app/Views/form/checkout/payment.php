@@ -52,6 +52,19 @@
                 </div>
               </div>
             </label>
+            <label for="four" class="box py-2 third pointer-event-none">
+              <div class="d-flex">
+                <div class="course">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="fw-bold">
+                      Harga Kost :
+                    </span>
+                    <span class="fas fa-dollar-sign">4</span>
+                  </div>
+                  <span>Rp. <?= $order['nominal_pembayaran']-$order['total_pembayaran_lunas'] ?></span>
+                </div>
+              </div>
+            </label>
           </div>
         </div>
       </div>
@@ -66,11 +79,34 @@
             <input type="hidden" name="_method" value="POST">
             <input type="hidden" name="nominal_pembayaran" value="<?= $order['nominal_pembayaran'] ?>">
 
+            <?php 
+              $order_nominal = $order['nominal_pembayaran'];
+              $sudah_terbayar = $order['total_pembayaran_lunas'] == NULL ? 0 : substr($order['total_pembayaran_lunas'],0,1);
+
+              $nominal;
+              if($order['durasi_sewa'] == 12) {
+                $nominal = substr($order_nominal,0,2);
+              }else {
+                $nominal = substr($order_nominal,0,1);
+              }
+            ?>
+            <div class="mb-3">
+              <p class="dis fw-bold mb-2">Pembayaran</p>
+              <select name="durasi_sewa" class="form-select<?= $validation->hasError("durasi_sewa") ? " is-invalid" : ""?>" id="durasi_sewa">
+              <option value="" hidden selected>Pembayaran</option>
+              <?php for($i=1; $i <= ($nominal-$sudah_terbayar); $i++) : ?>
+                <option value="<?= $i ?>"><?= $i ?> Months</option>
+              <?php endfor ?>
+              </select>
+            </div>
+                
             <div class="mb-3">
               <p class="dis fw-bold mb-2">Nominal Pembayaran</p>
-              <input class="form-control<?= $validation->hasError("pembayaran") ? " is-invalid" : ""?>" type="text"
-                name="pembayaran" value="<?= old('pembayaran') ?>">
+              <input id="nominal_pembayaran" class="form-control<?= $validation->hasError("pembayaran") ? " is-invalid" : ""?>" type="text"
+                name="pembayaran" value="<?= old('pembayaran') ?>" readOnly>
             </div>
+
+
             <div>
               <div class="address">
                 <div class="mb-3">
@@ -94,18 +130,6 @@
                     name="bukti_pembayaran">
                 </div>
                 <div class="d-flex flex-column dis">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <p>Subtotal</p>
-                    <p class="subtotal" id="subtotal">
-                      <?= $order['nominal_pembayaran'] ?>
-                    </p>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <p class="fw-bold">Total</p>
-                    <p class="fw-bold" id="total">
-                      <?= $order['nominal_pembayaran'] ?>
-                    </p>
-                  </div>
                   <button type="submit" class="btn btn-primary mt-2">
                     Order
                   </button>
@@ -120,7 +144,11 @@
 </div>
 
 <script>
-  $(document).on('change', '#durasi_sewa', function () {});
+  $(document).on('change', '#durasi_sewa', function () {
+    let a = $('#durasi_sewa').val();
+
+    $('#nominal_pembayaran').val((<?= $order['nominal_pembayaran'] ?>/<?= $order['durasi_sewa'] ?>)*a);
+  });
 </script>
 <?= $this->endSection() ?>
 
