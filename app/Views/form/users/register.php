@@ -10,7 +10,7 @@
 
             <h3 class="mb-4">Daftar Member</h3>
 
-            <form action="/register" method="post">
+            <form action="/register" method="post" enctype="multipart/form-data">
               <?= csrf_field() ?>
               <input type="hidden" name="_method" value="POST">
 
@@ -70,6 +70,16 @@
                 <?php if($validation->hasError('alamat')) : ?>
                 <div class="invalid-feedback">
                   <?= $validation->getError('alamat') ?>
+                </div>
+                <?php endif; ?>
+              </div>
+
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Upload KTP</label>
+                <input name="ktp" class="form-control" type="file" id="formFile">
+                <?php if($validation->hasError('ktp')) : ?>
+                <div class="invalid-feedback">
+                  <?= $validation->getError('ktp') ?>
                 </div>
                 <?php endif; ?>
               </div>

@@ -14,7 +14,7 @@ class MemberModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama', 'email', 'password', 'handphone', 'alamat', 'role'];
+    protected $allowedFields    = ['nama', 'email', 'password', 'handphone', 'alamat', 'ktp', 'role'];
 
     // Dates
     protected $useTimestamps = false;

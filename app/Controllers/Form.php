@@ -84,7 +84,8 @@ class Form extends BaseController
             'email' => 'required|is_unique[member.email]',
             'password' => 'required|min_length[5]',
             'handphone' => 'required|min_length[8]|numeric',
-            'alamat' => 'required|min_length[5]'
+            'alamat' => 'required|min_length[5]',
+            'ktp' => 'uploaded[ktp]|is_image[ktp]'
         ];
 
         if(!$this->validate($validation)) {
@@ -92,12 +93,17 @@ class Form extends BaseController
             return redirect()->back()->withInput()->with('validation', $validation);
         }
 
+        $ktp = $this->request->getFile('ktp');
+        $gambarKtp = $ktp->getRandomName();
+        $ktp->move('images/kamar', $gambarKtp);
+
         $input = [
             'nama' => $this->request->getVar('nama'),
             'email' => $this->request->getVar('email'),
             'password' => $this->request->getVar('password'),
             'handphone' => $this->request->getVar('handphone'),
             'alamat' => $this->request->getVar('alamat'),
+            'ktp' => $gambarKtp,
             'role' => 'member',
         ];
 
@@ -107,7 +113,8 @@ class Form extends BaseController
             'password' => $input['password'],
             'handphone' => $input['handphone'],
             'alamat' => $input['alamat'],
-            'role' => $input['role']
+            'role' => $input['role'],
+            'ktp' => $input['ktp']
         ]);
 
         return redirect()->to('/login')->with('success', 'You have create account, please login first');

@@ -21,6 +21,9 @@
   }
 </style>
 <h1 class="title">Data Pengeluaran</h1>
+<div class="d-flex justify-content-between align-items-center">
+  <p>Tanggal Cetak : <?= date('Y-m-d') ?></p>
+</div>
 <table>
   <thead>
     <th>#</th>
@@ -31,14 +34,21 @@
   </thead>
   <tbody>
     <?php $i = 1 ?>
+    <?php $total = 0 ?>
     <?php foreach($pengeluarans as $pengeluaran) : ?>
       <tr>
         <td><?= $i++ ?></td>
         <td><?= $pengeluaran['tanggal'] ?></td>
-        <td><?= $pengeluaran['jumlah'] ?></td>
+        <td>Rp.<?= $pengeluaran['jumlah'] ?></td>
         <td><?= $pengeluaran['jenis_pengeluaran'] ?></td>
         <td><?= $pengeluaran['keterangan'] ?></td>
       </tr>
+
+      <?php $total += $pengeluaran['jumlah'] ?>
       <?php endforeach ?>
+      <tr>
+        <td colspan="4">Total Pengeluaran</td>
+        <td>Rp.<?= $total ?></td>
+      </tr>
   </tbody>
 </table>
