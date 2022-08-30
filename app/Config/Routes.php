@@ -95,6 +95,11 @@ $routes->group('admin', ['filter' => 'adminAuth'], function($routes) {
         $routes->put('(:num)', 'Admin::editOrder/$1');
         $routes->get('transaksi/user/(:num)/(:num)', 'Admin::dataTransaksi/$1/$2');
     });
+
+    $routes->group('data-sewa', function($routes) {
+        $routes->get('/', 'Admin::dataSewa');
+        $routes->get('download', 'Admin::downloadPenyewaan');
+    });
 });
 
 // Member

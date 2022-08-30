@@ -54,6 +54,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="/admin/data-pengeluaran">Laporan Pengeluaran</a>
+                <a class="collapse-item" href="/admin/data-sewa">Laporan Penyewaan</a>
             </div>
         </div>
     </li>

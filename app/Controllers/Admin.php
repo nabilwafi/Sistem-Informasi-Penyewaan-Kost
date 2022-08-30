@@ -469,4 +469,36 @@ class Admin extends BaseController
 
         return view('admin/pembayaran/index', $data);
     }
+
+    public function dataSewa()
+    {
+        $data = [
+            'sewas' => $this->orders->where(['status_pembayaran' => 'lunas'])->paginate(5, 'pembayarans'),
+            'validation' => $this->validation
+        ];
+        // dd($data['sewas']);
+
+        return view('admin/penyewaan/index', $data);
+    }
+
+    public function downloadPenyewaan()
+    {
+        
+        $dompdf = new DomPdf();
+
+
+        $pengeluarans = $this->orders->where(['status_pembayaran' => 'lunas']);
+
+        $data = [
+            'pengeluarans' => $pengeluarans->findAll()
+        ];
+
+        $html = view('/admin/penyewaan/download', $data);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream('data_penyewaan.pdf', array(
+            'Attachment' => true
+        ));
+    }
 }
