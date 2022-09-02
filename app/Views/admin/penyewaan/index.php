@@ -43,7 +43,7 @@
           <?php endforeach ?>
           <?php else : ?>
           <tr>
-            <td colspan="6" class="text-center">There's no pengeluaran data</td>
+            <td colspan="6" class="text-center">There's no order data</td>
           </tr>
           <?php endif ?>
         </tbody>

@@ -28,10 +28,12 @@ class Member extends BaseController
         $data = [
             'deadlines' => $this->orderModel
             ->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'belum bayar'])
-            ->orWhere(['status_pembayaran' => 'menyicil'])
+            ->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'menyicil'])
             ->findAll(),
             'cicilan' => $this->orderModel->cicilan()->where('id_user', $user)->groupBy('order.id')->first()
         ];
+
+        // dd($data['deadlines'], $user);
 
         return view('users/index', $data);
     }
@@ -42,7 +44,10 @@ class Member extends BaseController
             'orders' => $this->orderModel->joinOrderTable()->where('id_user',$user)->orderBy('order.id', 'DESC')->groupBy('id')->paginate(5, 'orders'),
             'pager' => $this->orderModel->pager,
             'currentPage' => $this->request->getVar('page_orders') ? $this->request->getVar('page_orders') : 1,
-            'deadlines' => $this->orderModel->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'belum bayar', 'status_pembayaran' => 'menyicil'])->orWhere(['status_pembayaran' => 'menyicil'])->findAll(),
+            'deadlines' => $this->orderModel
+            ->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'belum bayar'])
+            ->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'menyicil'])
+            ->findAll(),
             'cicilan' => $this->orderModel->cicilan()->where('id_user', $user)->orderBy('order.id', 'desc')->groupBy('order.id')->first(),
             'order' => $this->orderModel->where('id_user', $user)->orderBy('id', 'desc')->first()
         ];
@@ -57,7 +62,10 @@ class Member extends BaseController
             'pager' => $this->pembayaranModel->pager,
             'validation' => $this->validation,
             'currentPage' => $this->request->getVar('page_pembayarans') ? $this->request->getVar('page_pembayarans') : 1,
-            'deadlines' => $this->orderModel->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'belum bayar', 'status_pembayaran' => 'menyicil'])->orWhere(['status_pembayaran' => 'menyicil'])->findAll(),
+            'deadlines' => $this->orderModel
+            ->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'belum bayar'])
+            ->where(['id_user' => $user, 'terakhir_pembayaran >=' => date('Y-m-d H:i:s'), 'status_pembayaran' => 'menyicil'])
+            ->findAll(),
             'cicilan' => $this->orderModel->cicilan()->where('id_user', $user)->groupBy('order.id')->first()
         ];
 
