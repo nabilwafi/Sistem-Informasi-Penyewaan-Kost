@@ -382,7 +382,9 @@ class Admin extends BaseController
         $pengeluarans = $input['tanggal_awal'] && $input['tanggal_akhir'] ? $this->pengeluarans->findByDate($input['tanggal_awal'], $input['tanggal_akhir']) : $this->pengeluarans;
 
         $data = [
-            'pengeluarans' => $pengeluarans->findAll()
+            'pengeluarans' => $pengeluarans->findAll(),
+            'tanggal_awal' => $this->request->getVar('tanggal_awal'),
+            'tanggal_akhir' => $this->request->getVar('tanggal_akhir')
         ];
 
         $html = view('/admin/pengeluaran/download', $data);

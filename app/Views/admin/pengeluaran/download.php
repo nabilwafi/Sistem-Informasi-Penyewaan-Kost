@@ -23,6 +23,7 @@
 <h1 class="title">Data Pengeluaran</h1>
 <div class="d-flex justify-content-between align-items-center">
   <p>Tanggal Cetak : <?= date('Y-m-d') ?></p>
+  <p>Periode Cetak : <?= $tanggal_awal ?> - <?= $tanggal_akhir ?></p>
 </div>
 <table>
   <thead>

@@ -47,9 +47,13 @@
             <td><?= $order['durasi_sewa'] ?> Bulan</td>
             <td>Rp. <?= $order['nominal_pembayaran'] ?></td>
             <td>
-                <div class="btn pointer-event-none <?= ($order['status_pembayaran'] != 'lunas' && $order['total_pembayaran_lunas'] != $order['nominal_pembayaran']) ? "btn-danger" : 'btn-success' ?>">
+              <?php if($order['status_pembayaran'] == 'lunas') : ?>
+                    -
+              <?php else : ?>
+                <div class="btn btn-danger">
                   <?= $order['terakhir_pembayaran'] ?>
                 </div>
+              <?php endif ?>
             </td>
             <td><?= $order['status_pembayaran'] ?></td>
             <td>

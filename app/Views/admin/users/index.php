@@ -22,6 +22,7 @@
             <th>Email</th>
             <th>No Telepon</th>
             <th>Alamat</th>
+            <th>Foto KTP</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -35,6 +36,11 @@
             <td><?= $member['email'] ?></td>
             <td><?= $member['handphone'] ?></td>
             <td><?= $member['alamat'] ?></td>
+            <td>
+              <?php if($member['ktp']) : ?>
+                <img src="/images/kamar/<?= $member['ktp'] ?>" alt="" width="50" height="50" />
+                <?php endif ?>
+            </td>
             <td>
               <a class="btn btn-primary" href="/admin/data-user/update/<?= $member['id'] ?>">Update</a>
 
